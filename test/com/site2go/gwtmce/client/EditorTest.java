@@ -190,9 +190,9 @@ public class EditorTest
 	
 	public void testGetAndSetContent()
 	{
-		ContentObject co = ContentObject.create();
+		ContentObject co = new ContentObject();
 		co.setFormat(ContentFormat.RAW);
-		co.setProperty("customTestField", true);
+		co.getProperties().setProperty("customTestField", true);
 		String content = "<p>test get/set content</p>";
 		String overrideContent = "<p>test override content</p>";
 		String finalContent = "<p>This is what should come out yo.</p>";
@@ -248,7 +248,7 @@ public class EditorTest
 		UndoManager um = this.editor.getUndoManager();
 
 		// Let's start with a clean slate.
-		ContentObject options = ContentObject.create(true, ContentFormat.RAW);
+		ContentObject options = new ContentObject(true, ContentFormat.RAW);
 		this.editor.setContent("<p><b>Test content!</b></p>", options);
 		um.clear();
 
@@ -303,7 +303,7 @@ public class EditorTest
 		assertEquals(newLevel, level);
 		
 		// The content of editor should be equal to new content we made before.
-		assertEquals(newContent, this.editor.getContent(ContentObject.create(true, ContentFormat.RAW)));
+		assertEquals(newContent, this.editor.getContent(new ContentObject(true, ContentFormat.RAW)));
 
 		// Undo should be available again, and no redo.
 		assertTrue(um.hasUndo());
@@ -751,7 +751,7 @@ public class EditorTest
 			assertEquals(this.expectedFormat, o.getFormat());
 
 			// Make sure the custom property we set on content object carreid through to the handlers.
-			assertTrue(o.getProperty("customTestField", false));
+			assertTrue(o.getProperties().getProperty("customTestField", false));
 
 			// Now, we're going to change the content to the override content we were provided. This is to check and ensure editor is picking it up correctly.
 			o.setContent(this.overrideContent);
@@ -766,7 +766,7 @@ public class EditorTest
 			assertEquals(this.editor, sender);
 			assertEquals(this.overrideContent, co.getContent());
 			assertEquals(this.expectedFormat, co.getFormat());
-			assertTrue(co.getProperty("customTestField", false));
+			assertTrue(co.getProperties().getProperty("customTestField", false));
 
 			co.setContent(this.finalContent);
 
@@ -798,7 +798,7 @@ public class EditorTest
 			assertEquals(this.editor, ed);
 			assertEquals(this.expectedFormat, o.getFormat());
 			assertEquals(this.expectedContent, o.getContent());
-			assertTrue(o.getProperty("customTestField", false));
+			assertTrue(o.getProperties().getProperty("customTestField", false));
 			
 			o.setContent(this.overrideContent);
 
@@ -812,7 +812,7 @@ public class EditorTest
 			assertEquals(this.editor, ed);
 			assertEquals(this.expectedFormat, co.getFormat());
 			assertEquals(this.overrideContent, co.getContent());
-			assertTrue(co.getProperty("customTestField", false));
+			assertTrue(co.getProperties().getProperty("customTestField", false));
 			
 			co.setContent(this.finalContent);
 			
