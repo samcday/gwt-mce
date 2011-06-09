@@ -149,7 +149,7 @@ public class Editor
 		this.impl.focus(sf);
 	};
 
-	public final void focus()
+	public void focus()
 	{
 		this.focus(false);
 	}
@@ -323,7 +323,7 @@ public class Editor
 		return this.impl.save(o);
 	}
 
-	public final String save()
+	public String save()
 	{
 		return this.save(null);
 	}
@@ -338,7 +338,7 @@ public class Editor
 		return this.impl.setContent(h, options);
 	}
 
-	public final String setContent(String h)
+	public String setContent(String h)
 	{
 		return this.setContent(h, null);
 	}
@@ -360,7 +360,7 @@ public class Editor
 		return this.impl.setProgressState(show, timeout, obj);
 	}
 	
-	public final boolean setProgressState(boolean show, float timeout)
+	public boolean setProgressState(boolean show, float timeout)
 	{
 		return this.setProgressState(show, timeout, null);
 	}
@@ -410,7 +410,7 @@ public class Editor
 	 * 
 	 * @param handler
 	 */
-	public final HandlerRegistration addActivateHandler(ActivateHandler handler)
+	public HandlerRegistration addActivateHandler(ActivateHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("activate");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new ActivateHandlerDelegate(handler));
@@ -421,7 +421,7 @@ public class Editor
 	 * @param handler
 	 * @return
 	 */
-	public final HandlerRegistration addBeforeExecCommandHandler(BeforeExecCommandHandler handler)
+	public HandlerRegistration addBeforeExecCommandHandler(BeforeExecCommandHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("beforeExecCommand");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new BeforeExecCommandHandlerDelegate(handler));
@@ -432,7 +432,7 @@ public class Editor
 	 * @param handler
 	 * @return
 	 */
-	public final HandlerRegistration addBeforeGetContentHandler(BeforeGetContentHandler handler)
+	public HandlerRegistration addBeforeGetContentHandler(BeforeGetContentHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("beforeGetContent");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new BeforeGetContentHandlerDelegate(handler));
@@ -443,7 +443,7 @@ public class Editor
 	 * @param handler
 	 * @return
 	 */
-	public final HandlerRegistration addBeforeRenderUIHandler(BeforeRenderUIHandler handler)
+	public HandlerRegistration addBeforeRenderUIHandler(BeforeRenderUIHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("beforeRenderUI");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new BeforeRenderUIHandlerDelegate(handler));
@@ -454,13 +454,13 @@ public class Editor
 	 * @param handler
 	 * @return
 	 */
-	public final HandlerRegistration addBeforeSetContentHandler(BeforeSetContentHandler handler)
+	public HandlerRegistration addBeforeSetContentHandler(BeforeSetContentHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("beforeSetContent");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new BeforeSetContentHandlerDelegate(handler));
 	}
 
-	public final HandlerRegistration addChangeHandler(ChangeHandler handler)
+	public HandlerRegistration addChangeHandler(ChangeHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("change");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new ChangeHandlerDelegate(handler));
@@ -472,19 +472,19 @@ public class Editor
 	 * 
 	 * @param handler
 	 */
-	public final HandlerRegistration addClickHandler(ClickHandler handler)
+	public HandlerRegistration addClickHandler(ClickHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("click");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new ClickHandlerDelegate(handler));
 	}
 
-	public final HandlerRegistration addContextMenuHandler(ContextMenuHandler handler)
+	public HandlerRegistration addContextMenuHandler(ContextMenuHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("contextMenu");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new ContextMenuHandlerDelegate(handler));
 	}
 
-	public final HandlerRegistration addDblClickHandler(DblClickHandler handler)
+	public HandlerRegistration addDblClickHandler(DblClickHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("dblClick");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new DblClickHandlerDelegate(handler));
@@ -494,7 +494,7 @@ public class Editor
 	 * Fires when the editor is deactivated.
 	 * @param handler
 	 */
-	public final HandlerRegistration addDeactivateHandler(DeactivateHandler handler)
+	public HandlerRegistration addDeactivateHandler(DeactivateHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("deactivate");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new DeactivateHandlerDelegate(handler));
@@ -504,19 +504,19 @@ public class Editor
 	 * Adds a handler for all events fired.
 	 * @param handler
 	 */
-	public final HandlerRegistration addEventHandler(EventHandler handler)
+	public HandlerRegistration addEventHandler(EventHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("event");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new EventHandlerDelegate(handler));
 	}
 
-	public final HandlerRegistration addExecCommandHandler(ExecCommandHandler handler)
+	public HandlerRegistration addExecCommandHandler(ExecCommandHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("execCommand");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new ExecCommandHandlerDelegate(handler));
 	}
 
-	public final HandlerRegistration addGetContentHandler(GetContentHandler handler)
+	public HandlerRegistration addGetContentHandler(GetContentHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("getContent");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new GetContentHandlerDelegate(handler));
@@ -528,43 +528,43 @@ public class Editor
 	 * 
 	 * @param handler
 	 */
-	public final HandlerRegistration addInitHandler(InitHandler handler)
+	public HandlerRegistration addInitHandler(InitHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("init");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new InitHandlerDelegate(handler));
 	}
 	
-	public final HandlerRegistration addKeyDownHandler(KeyDownHandler handler)
+	public HandlerRegistration addKeyDownHandler(KeyDownHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("keyDown");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new KeyDownHandlerDelegate(handler));
 	}
 
-	public final HandlerRegistration addKeyPressHandler(KeyPressHandler handler)
+	public HandlerRegistration addKeyPressHandler(KeyPressHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("keyPress");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new KeyPressHandlerDelegate(handler));		
 	}
 	
-	public final HandlerRegistration addKeyUpHandler(KeyUpHandler handler)
+	public HandlerRegistration addKeyUpHandler(KeyUpHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("keyUp");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new KeyUpHandlerDelegate(handler));
 	}
 
-	public final HandlerRegistration addMouseDownHandler(MouseDownHandler handler)
+	public HandlerRegistration addMouseDownHandler(MouseDownHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("mouseDown");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new MouseDownHandlerDelegate(handler));
 	}
 
-	public final HandlerRegistration addMouseUpHandler(MouseUpHandler handler)
+	public HandlerRegistration addMouseUpHandler(MouseUpHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("mouseUp");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new MouseUpHandlerDelegate(handler));
 	}
 
-	public final HandlerRegistration addPostRenderHandler(PostRenderHandler handler)
+	public HandlerRegistration addPostRenderHandler(PostRenderHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("postRender");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new PostRenderHandlerDelegate(handler));
@@ -576,37 +576,37 @@ public class Editor
 	 * @param settings
 	 * @return
 	 */
-	public final HandlerRegistration addPreInitHandler(PreInitHandler handler)
+	public HandlerRegistration addPreInitHandler(PreInitHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("preInit");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new PreInitHandlerDelegate(handler));
 	}
 
-	public final HandlerRegistration addRedoHandler(RedoHandler handler)
+	public HandlerRegistration addRedoHandler(RedoHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("redo");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new RedoHandlerDelegate(handler));
 	}
 
-	public final HandlerRegistration addRemoveHandler(RemoveHandler handler)
+	public HandlerRegistration addRemoveHandler(RemoveHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("remove");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new RemoveHandlerDelegate(handler));
 	}
 	
-	public final HandlerRegistration addSetContentHandler(SetContentHandler handler)
+	public HandlerRegistration addSetContentHandler(SetContentHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("setContent");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new SetContentHandlerDelegate(handler));
 	}
 
-	public final HandlerRegistration addSetProgressStateHandler(SetProgressStateHandler handler)
+	public HandlerRegistration addSetProgressStateHandler(SetProgressStateHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("setProgressState");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new SetProgressStateHandlerDelegate(handler));
 	}
 
-	public final HandlerRegistration addUndoHandler(UndoHandler handler)
+	public HandlerRegistration addUndoHandler(UndoHandler handler)
 	{
 		Dispatcher dispatcher = this.impl.getDispatcher("undo");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new UndoHandlerDelegate(handler));
