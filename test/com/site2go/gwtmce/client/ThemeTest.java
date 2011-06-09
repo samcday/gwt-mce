@@ -57,7 +57,7 @@ public class ThemeTest
 		// Set up basic editor settings. Bare-ass minimum to ensure we have a functioning simple themed editor.
 		EditorInitOptions settings = new EditorInitOptions();
 		settings.setTheme("-testtheme");
-		this.editor = Editor.create(el.getId(), settings);
+		this.editor = new Editor(el.getId(), settings);
 
 		ThemeManager.get().add("testtheme", new AddonFactory<ThemeInterface>()
 		{

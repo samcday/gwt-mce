@@ -60,7 +60,7 @@ public class PluginTest
 		EditorInitOptions settings = new EditorInitOptions();
 		settings.setTheme("simple");
 		settings.getPluginsCollection().add("-testcaseplugin");
-		this.editor = Editor.create(el.getId(), settings);
+		this.editor = new Editor(el.getId(), settings);
 
 		this.editor.render();
 	}

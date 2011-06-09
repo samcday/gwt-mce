@@ -65,7 +65,7 @@ public class EditorTest
 
 		// Set up basic editor settings. Bare-ass minimum to ensure we have a functioning simple themed editor.
 		EditorInitOptions settings = new EditorInitOptions();
-		this.editor = Editor.create(el.getId(), settings);
+		this.editor = new Editor(el.getId(), settings);
 		settings.setTheme("simple");
 
 		this.initHandlers = new TestInitHandlers(this.editor);
@@ -352,7 +352,7 @@ public class EditorTest
 		newElement.setInnerHTML("NEW EDITOR FOR FOCUS TESTING.");
 		doc.getBody().appendChild(newElement);
 
-		final Editor newEditor = Editor.create(newElement.getId(), new EditorInitOptions());
+		final Editor newEditor = new Editor(newElement.getId(), new EditorInitOptions());
 
 		final TestFocusHandlers handlers = new TestFocusHandlers(this.editor, newEditor);
 

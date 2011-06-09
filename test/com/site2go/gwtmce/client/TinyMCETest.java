@@ -44,7 +44,7 @@ public class TinyMCETest
 		
 		EditorInitOptions settings = new EditorInitOptions();
 		settings.setTheme("simple");
-		final Editor editor = Editor.create(el.getId(), settings);
+		final Editor editor = new Editor(el.getId(), settings);
 
 		final Timer checkRemoveTimer = new Timer()
 		{

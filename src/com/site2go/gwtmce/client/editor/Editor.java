@@ -1,11 +1,9 @@
 package com.site2go.gwtmce.client.editor;
 
-import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.IFrameElement;
 import com.site2go.gwt.util.client.FunctionProxy;
-import com.site2go.gwtmce.client.util.PropertiesObject;
 import com.site2go.gwt.util.client.FunctionProxy.FunctionArguments;
 import com.site2go.gwt.util.client.FunctionProxy.FunctionHandler;
 import com.site2go.gwtmce.client.dom.Selection;
@@ -62,6 +60,7 @@ import com.site2go.gwtmce.client.editor.events.SetProgressStateHandler;
 import com.site2go.gwtmce.client.editor.events.SetProgressStateHandlerDelegate;
 import com.site2go.gwtmce.client.editor.events.UndoHandler;
 import com.site2go.gwtmce.client.editor.events.UndoHandlerDelegate;
+import com.site2go.gwtmce.client.editor.impl.EditorImpl;
 import com.site2go.gwtmce.client.event.Dispatcher;
 import com.site2go.gwtmce.client.event.MCEEventHandlerDelegate;
 import com.site2go.gwtmce.client.plugin.Plugin;
@@ -78,9 +77,16 @@ import com.site2go.gwtmce.client.util.WindowManager;
 public class Editor
 {
 	private EditorImpl impl;
+	private EditorInitOptions settings;
 
-	public Editor() {
-		
+	/**
+	 * Constructs a editor instance by id.
+	 * @param id Unique id for the editor.
+	 * @param s Optional settings string for the editor.
+	 */
+	public Editor(String id, EditorInitOptions s) {
+		this.settings = s;
+		this.impl = EditorImpl.constructor(id, s.getProperties());
 	}
 
 	/**
@@ -89,17 +95,12 @@ public class Editor
 	 * automatically when the page is unloaded but you can also call it directly
 	 * if you know what you are doing.
 	 */
-	public final void destroy() 
+	public void destroy() 
 	{
 		MCEEventHandlerDelegate.removeEditorFunctionProxies(this);
-		this.destroyImpl();
+		this.impl.destroy();
 	}
 
-	private native final void destroyImpl()
-	/*-{
-		this.destroy();
-	}-*/;
-	
 	/**
 	 * Executes a command on the current instance. These commands can be TinyMCE
 	 * internal commands prefixed with "mce" or they can be build in browser
@@ -115,17 +116,17 @@ public class Editor
 	 * @param o Optional arguments object.
 	 * @return True/false if the command was executed or not.
 	 */
-	public native final boolean execCommand(String commandName, boolean ui,
-			Object val, Object o) /*-{
-		return this.execCommand(commandName, ui, val, o) ? true : false;
-	}-*/;
+	public boolean execCommand(String commandName, boolean ui,
+			Object val, Object o) {
+		return this.impl.execCommand(commandName, ui, val, o);
+	};
 
-	public final boolean execCommand(String commandName, boolean ui, Object val)
+	public boolean execCommand(String commandName, boolean ui, Object val)
 	{
 		return this.execCommand(commandName, ui, val, null);
 	}
 
-	public final boolean execCommand(String commandName, boolean ui)
+	public boolean execCommand(String commandName, boolean ui)
 	{
 		return this.execCommand(commandName, ui, null);
 	}
@@ -133,9 +134,9 @@ public class Editor
 	/**
 	 * Fires an event using the relevant dispatcher.  
 	 */
-	public final void dispatch(String eventName, Object... args)
+	public void dispatch(String eventName, Object... args)
 	{
-		Dispatcher d = this.getDispatcher(eventName);
+		Dispatcher d = this.impl.getDispatcher(eventName);
 		if(d == null) return;
 
 		d.dispatch(args);
@@ -144,9 +145,9 @@ public class Editor
 	/**
 	 * Focuses/activates the editor. This will set this editor as the activeEditor in the tinymce collection it will also place DOM focus inside the editor.
 	 */
-	public native final void focus(boolean sf) /*-{
-		this.focus(sf);
-	}-*/;
+	public void focus(boolean sf) {
+		this.impl.focus(sf);
+	};
 
 	public final void focus()
 	{
@@ -156,17 +157,17 @@ public class Editor
 	/**
 	 * Returns the iframes body element.
 	 */
-	public native final Element getBody()/*-{
-		return this.getBody();
-	}-*/;
+	public Element getBody() {
+		return this.impl.getBody();
+	};
 
 	/**
 	 * Returns the editors container element. The container element wrappes in all the elements added to the page for the editor. Such as UI, iframe etc.
 	 * @return
 	 */
-	public native final Element getContainer() /*-{
-		return this.getContainer();
-	}-*/;
+	public Element getContainer() {
+		return this.impl.getContainer();
+	};
 
 	/**
 	 * Gets the content from the editor instance, this will cleanup the content
@@ -177,11 +178,11 @@ public class Editor
 	 *            whole get process.
 	 * @return Cleaned content string, normally HTML contents.
 	 */
-	public native final String getContent(ContentObject options) /*-{
-		return this.getContent(options);
-	}-*/;
+	public String getContent(ContentObject options) {
+		return this.impl.getContent(options);
+	};
 
-	public final String getContent()
+	public String getContent()
 	{
 		return this.getContent(null);
 	}
@@ -190,127 +191,122 @@ public class Editor
 	 * Returns the editors content area container element. The this element is the one who holds the iframe or the editable element.
 	 * @return
 	 */
-	public native final Element getContentAreaContainer() /*-{
-		return this.getContentAreaContainer();
-	}-*/;
+	public Element getContentAreaContainer() {
+		return this.impl.getContentAreaContainer();
+	}
 
 	/**
 	 * Returns {@link ControlManager} instance for the editor.
 	 * @return
 	 */
-	public native final ControlManager getControlManager() /*-{
-		return this.controlManager;
-	}-*/;
+	public ControlManager getControlManager() {
+		return this.impl.getControlManager();
+	}
 
 	/**
 	 * Returns the iframes document object.
 	 * @return
 	 */
-	public native final Document getDoc() /*-{
-		return this.getDoc();
-	}-*/;
+	public Document getDoc() {
+		return this.impl.getDoc();
+	}
 
 	/**
 	 * Returns the target element/textarea that got replaced with a TinyMCE
 	 * editor instance.
 	 */
-	public native final Element getElement() /*-{
-		return this.getElement();
-	}-*/;
+	public Element getElement() {
+		return this.impl.getElement();
+	}
 
 	/**
 	 * Returns {@link Editor} instance id, normally the same as the div/textarea
 	 * that was replaced.
 	 */
-	public native final String getId() /*-{
-		return this.id;
-	}-*/;
+	public String getId() {
+		return this.impl.getId();
+	}
 
 	/**
 	 * Gets iframe element for this editor.
 	 * @return
 	 */
-	public final IFrameElement getIframe()
+	public IFrameElement getIframe()
 	{
 		return Document.get().getElementById(this.getId() + "_ifr").cast();
 	}
-	
+
 	/**
-	 * Returns a Name/Value object containting plugin instances.
+	 * Returns a Name/Value object containing plugin instances.
 	 */
-	public native final Plugin getPlugin(String name) /*-{
-		return this.plugins[name];
-	}-*/;
-	
-	public native final Selection getSelection() /*-{
-		alert(this);
-		alert(this.selection);
-		alert(this.selection.getEnd);
-		//return null;
-		return this.selection;
-	}-*/;
+	public Plugin getPlugin(String name) {
+		return this.impl.getPlugin(name);
+	}
+
+	public Selection getSelection() {
+		return this.impl.getSelection();
+	}
 
 	/**
 	 * Returns name/value collection with editor settings.
 	 * 
 	 * @return
 	 */
-	public native final EditorInitOptions getSettings() /*-{
+	public EditorInitOptions getSettings() {
 		return this.settings;
-	}-*/;
+	}
 
 	/**
 	 * Reference to the {@link Theme} instance that was used to generate the UI.
 	 */
-	public native final Theme getTheme() /*-{
-		return this.theme;
-	}-*/;
+	public Theme getTheme() {
+		return this.impl.getTheme();
+	}
 	
-	public native final UndoManager getUndoManager() /*-{
-		return this.undoManager;
-	}-*/;
+	public UndoManager getUndoManager() {
+		return this.impl.getUndoManager();
+	}
 
-	public native final WindowManager getWindowManager()
-	/*-{
-		return this.windowManager;
-	}-*/;
+	public WindowManager getWindowManager() {
+		return this.impl.getWindowManager();
+	}
 	
 	/**
 	 * Hides the editor and shows any textarea/div that the editor is supposed
 	 * to replace.
 	 */
-	public native final void hide() /*-{
-		this.hide();
-	}-*/;
+	public void hide() {
+		this.impl.hide();
+	}
 
 	/**
 	 * Returns true/false if the editor is dirty or not. It will get dirty if
 	 * the user has made modifications to the contents.
 	 */
-	public native final boolean isDirty() /*-{
-		return this.isDirty();
-	}-*/;
+	public boolean isDirty() {
+		return this.impl.isDirty();
+	}
 
 	/**
 	 * Returns true/false if the editor is hidden or not.
 	 */
-	public native final boolean isHidden() /*-{
-		return this.isHidden();
-	}-*/;
+	public boolean isHidden() {
+		return this.impl.isHidden();
+	}
 
 	/**
 	 * Removes the editor from the dom and EditorManager collection.
 	 */
-	public native final void remove() /*-{
-		this.remove();
-	}-*/;
+	public void remove() {
+		this.impl.remove();
+	}
 
 	/**
 	 * Renders the editor/adds it to the page.
 	 */
-	public native final void render() /*-{
-		this.render();
-	}-*/;
+	public void render() {
+		this.impl.render();
+	}
 
 	/**
 	 * Saves the contents from a editor out to the textarea or div element that
@@ -323,9 +319,9 @@ public class Editor
 	 *            whole save process.
 	 * @return HTML string that got set into the textarea/div.
 	 */
-	public native final String save(Object o) /*-{
-		return this.save(o);
-	}-*/;
+	public String save(Object o) {
+		return this.impl.save(o);
+	}
 
 	public final String save()
 	{
@@ -338,9 +334,9 @@ public class Editor
 	 * @param o Optional content object, this gets passed around through the whole set process.
 	 * @return HTML string that got set into the editor.
 	 */
-	public native final String setContent(String h, ContentObject options) /*-{
-		return this.setContent(h, options);
-	}-*/;
+	public String setContent(String h, ContentObject options) {
+		return this.impl.setContent(h, options);
+	}
 
 	public final String setContent(String h)
 	{
@@ -359,10 +355,10 @@ public class Editor
 	 *            Optional object to pass to the progress observers.
 	 * @return Same as the input state.
 	 */
-	public native final boolean setProgressState(boolean show, float timeout,
-			Object obj) /*-{
-		return this.setProgressState(show, timeout, obj);
-	}-*/;
+	public boolean setProgressState(boolean show, float timeout,
+			Object obj) {
+		return this.impl.setProgressState(show, timeout, obj);
+	}
 	
 	public final boolean setProgressState(boolean show, float timeout)
 	{
@@ -372,17 +368,17 @@ public class Editor
 	/**
 	 * Shows the editor and hides any textarea/div that the editor is supposed to replace.
 	 */
-	public native final void show() /*-{
-		this.show();
-	}-*/;
+	public void show() {
+		this.impl.show();
+	}
 
 	/**
 	 * Translates the specified string by replacing variables with language pack items it will also check if there is a key mathcin the input.
 	 * @param s
 	 */
-	public native final void translate(String s) /*-{
-		return this.translate(s);
-	}-*/;
+	public String translate(String s) {
+		return this.impl.translate(s);
+	}
 
 	/**
 	 * Adds a custom command to the editor, you can also override existing
@@ -394,9 +390,9 @@ public class Editor
 	 * @param callback
 	 *            Callback to execute when the command occurs.
 	 */
-	public final void addCommand(final String commandName, final CustomEditorCommandCallback cb)
+	public void addCommand(final String commandName, final CustomEditorCommandCallback cb)
 	{
-		this.addCommandImpl(commandName, FunctionProxy.create(new FunctionHandler()
+		this.impl.addCommand(commandName, FunctionProxy.create(new FunctionHandler()
 		{
 			@Override
 			public Object onFunctionCall(FunctionProxy func, FunctionArguments args)
@@ -408,28 +404,6 @@ public class Editor
 			}
 		}));
 	}
-
-	private native final void addCommandImpl(String commandName, FunctionProxy fn)
-	/*-{
-		this.addCommand(commandName, fn);
-	}-*/;
-
-	/**
-	 * Retrieves one of the dispatchers
-	 * @param eventName
-	 * @return
-	 */
-	private final Dispatcher getDispatcher(String eventName)
-	{
-		String property = "on" + eventName.substring(0, 1).toUpperCase() + eventName.substring(1);
-		return this.getDispatcherImpl(property);
-	}
-
-	private native final Dispatcher getDispatcherImpl(String p)
-	/*-{
-		return this[p];
-	}-*/;
-
 	
 	/**
 	 * Fires when the editor is activated.
@@ -438,7 +412,7 @@ public class Editor
 	 */
 	public final HandlerRegistration addActivateHandler(ActivateHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("activate");
+		Dispatcher dispatcher = this.impl.getDispatcher("activate");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new ActivateHandlerDelegate(handler));
 	}
 
@@ -449,7 +423,7 @@ public class Editor
 	 */
 	public final HandlerRegistration addBeforeExecCommandHandler(BeforeExecCommandHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("beforeExecCommand");
+		Dispatcher dispatcher = this.impl.getDispatcher("beforeExecCommand");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new BeforeExecCommandHandlerDelegate(handler));
 	}
 
@@ -460,7 +434,7 @@ public class Editor
 	 */
 	public final HandlerRegistration addBeforeGetContentHandler(BeforeGetContentHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("beforeGetContent");
+		Dispatcher dispatcher = this.impl.getDispatcher("beforeGetContent");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new BeforeGetContentHandlerDelegate(handler));
 	}
 	
@@ -471,7 +445,7 @@ public class Editor
 	 */
 	public final HandlerRegistration addBeforeRenderUIHandler(BeforeRenderUIHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("beforeRenderUI");
+		Dispatcher dispatcher = this.impl.getDispatcher("beforeRenderUI");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new BeforeRenderUIHandlerDelegate(handler));
 	}
 	
@@ -482,13 +456,13 @@ public class Editor
 	 */
 	public final HandlerRegistration addBeforeSetContentHandler(BeforeSetContentHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("beforeSetContent");
+		Dispatcher dispatcher = this.impl.getDispatcher("beforeSetContent");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new BeforeSetContentHandlerDelegate(handler));
 	}
 
 	public final HandlerRegistration addChangeHandler(ChangeHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("change");
+		Dispatcher dispatcher = this.impl.getDispatcher("change");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new ChangeHandlerDelegate(handler));
 	}
 
@@ -500,19 +474,19 @@ public class Editor
 	 */
 	public final HandlerRegistration addClickHandler(ClickHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("click");
+		Dispatcher dispatcher = this.impl.getDispatcher("click");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new ClickHandlerDelegate(handler));
 	}
 
 	public final HandlerRegistration addContextMenuHandler(ContextMenuHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("contextMenu");
+		Dispatcher dispatcher = this.impl.getDispatcher("contextMenu");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new ContextMenuHandlerDelegate(handler));
 	}
 
 	public final HandlerRegistration addDblClickHandler(DblClickHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("dblClick");
+		Dispatcher dispatcher = this.impl.getDispatcher("dblClick");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new DblClickHandlerDelegate(handler));
 	}
 
@@ -522,7 +496,7 @@ public class Editor
 	 */
 	public final HandlerRegistration addDeactivateHandler(DeactivateHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("deactivate");
+		Dispatcher dispatcher = this.impl.getDispatcher("deactivate");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new DeactivateHandlerDelegate(handler));
 	}
 
@@ -532,19 +506,19 @@ public class Editor
 	 */
 	public final HandlerRegistration addEventHandler(EventHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("event");
+		Dispatcher dispatcher = this.impl.getDispatcher("event");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new EventHandlerDelegate(handler));
 	}
 
 	public final HandlerRegistration addExecCommandHandler(ExecCommandHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("execCommand");
+		Dispatcher dispatcher = this.impl.getDispatcher("execCommand");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new ExecCommandHandlerDelegate(handler));
 	}
 
 	public final HandlerRegistration addGetContentHandler(GetContentHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("getContent");
+		Dispatcher dispatcher = this.impl.getDispatcher("getContent");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new GetContentHandlerDelegate(handler));
 	}
 
@@ -556,43 +530,43 @@ public class Editor
 	 */
 	public final HandlerRegistration addInitHandler(InitHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("init");
+		Dispatcher dispatcher = this.impl.getDispatcher("init");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new InitHandlerDelegate(handler));
 	}
 	
 	public final HandlerRegistration addKeyDownHandler(KeyDownHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("keyDown");
+		Dispatcher dispatcher = this.impl.getDispatcher("keyDown");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new KeyDownHandlerDelegate(handler));
 	}
 
 	public final HandlerRegistration addKeyPressHandler(KeyPressHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("keyPress");
+		Dispatcher dispatcher = this.impl.getDispatcher("keyPress");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new KeyPressHandlerDelegate(handler));		
 	}
 	
 	public final HandlerRegistration addKeyUpHandler(KeyUpHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("keyUp");
+		Dispatcher dispatcher = this.impl.getDispatcher("keyUp");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new KeyUpHandlerDelegate(handler));
 	}
 
 	public final HandlerRegistration addMouseDownHandler(MouseDownHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("mouseDown");
+		Dispatcher dispatcher = this.impl.getDispatcher("mouseDown");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new MouseDownHandlerDelegate(handler));
 	}
 
 	public final HandlerRegistration addMouseUpHandler(MouseUpHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("mouseUp");
+		Dispatcher dispatcher = this.impl.getDispatcher("mouseUp");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new MouseUpHandlerDelegate(handler));
 	}
 
 	public final HandlerRegistration addPostRenderHandler(PostRenderHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("postRender");
+		Dispatcher dispatcher = this.impl.getDispatcher("postRender");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new PostRenderHandlerDelegate(handler));
 	}
 
@@ -604,37 +578,37 @@ public class Editor
 	 */
 	public final HandlerRegistration addPreInitHandler(PreInitHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("preInit");
+		Dispatcher dispatcher = this.impl.getDispatcher("preInit");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new PreInitHandlerDelegate(handler));
 	}
 
 	public final HandlerRegistration addRedoHandler(RedoHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("redo");
+		Dispatcher dispatcher = this.impl.getDispatcher("redo");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new RedoHandlerDelegate(handler));
 	}
 
 	public final HandlerRegistration addRemoveHandler(RemoveHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("remove");
+		Dispatcher dispatcher = this.impl.getDispatcher("remove");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new RemoveHandlerDelegate(handler));
 	}
 	
 	public final HandlerRegistration addSetContentHandler(SetContentHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("setContent");
+		Dispatcher dispatcher = this.impl.getDispatcher("setContent");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new SetContentHandlerDelegate(handler));
 	}
 
 	public final HandlerRegistration addSetProgressStateHandler(SetProgressStateHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("setProgressState");
+		Dispatcher dispatcher = this.impl.getDispatcher("setProgressState");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new SetProgressStateHandlerDelegate(handler));
 	}
 
 	public final HandlerRegistration addUndoHandler(UndoHandler handler)
 	{
-		Dispatcher dispatcher = this.getDispatcher("undo");
+		Dispatcher dispatcher = this.impl.getDispatcher("undo");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new UndoHandlerDelegate(handler));
 	}
 }
