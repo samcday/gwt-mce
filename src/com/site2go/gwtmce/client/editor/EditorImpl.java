@@ -9,6 +9,7 @@ import com.site2go.gwtmce.client.util.PropertiesObject;
 import com.site2go.gwt.util.client.FunctionProxy.FunctionArguments;
 import com.site2go.gwt.util.client.FunctionProxy.FunctionHandler;
 import com.site2go.gwtmce.client.dom.Selection;
+import com.site2go.gwtmce.client.editor.EditorInitOptions;
 import com.site2go.gwtmce.client.editor.events.ActivateHandler;
 import com.site2go.gwtmce.client.editor.events.ActivateHandlerDelegate;
 import com.site2go.gwtmce.client.editor.events.BeforeExecCommandHandler;
@@ -75,12 +76,22 @@ import com.site2go.gwtmce.client.util.WindowManager;
  * @author Sam
  * 
  */
-public class Editor
+class EditorImpl
+	extends JavaScriptObject
 {
-	private EditorImpl impl;
+	public static final EditorImpl create(String id, EditorInitOptions settings)
+	{
+		JavaScriptObject editor = constructor(id, settings.getProperties());
+		return editor.cast();
+	}
 
-	public Editor() {
-		
+	private static final native JavaScriptObject constructor(String id,
+			PropertiesObject settings) /*-{
+		return new $wnd.tinymce.Editor(id, settings);
+	}-*/;
+
+	protected EditorImpl()
+	{
 	}
 
 	/**
