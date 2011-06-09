@@ -77,14 +77,14 @@ import com.site2go.gwtmce.client.util.WindowManager;
 public class Editor
 {
 	private EditorImpl impl;
-	private EditorInitOptions settings;
+	private EditorSettings settings;
 
 	/**
 	 * Constructs a editor instance by id.
 	 * @param id Unique id for the editor.
 	 * @param s Optional settings string for the editor.
 	 */
-	public Editor(String id, EditorInitOptions s) {
+	public Editor(String id, EditorSettings s) {
 		this.settings = s;
 		this.impl = EditorImpl.constructor(id, s.getProperties());
 	}
@@ -252,7 +252,7 @@ public class Editor
 	 * 
 	 * @return
 	 */
-	public EditorInitOptions getSettings() {
+	public EditorSettings getSettings() {
 		return this.settings;
 	}
 

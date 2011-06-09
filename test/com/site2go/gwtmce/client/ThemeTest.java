@@ -9,7 +9,7 @@ import com.google.gwt.user.client.Timer;
 import com.site2go.gwtmce.client.addons.AddonInfo;
 import com.site2go.gwtmce.client.addons.AddonFactoryImpl.AddonFactory;
 import com.site2go.gwtmce.client.editor.Editor;
-import com.site2go.gwtmce.client.editor.EditorInitOptions;
+import com.site2go.gwtmce.client.editor.EditorSettings;
 import com.site2go.gwtmce.client.theme.ThemeInterface;
 import com.site2go.gwtmce.client.theme.ThemeManager;
 import com.site2go.gwtmce.client.theme.Theme.ThemeRenderOptions;
@@ -55,7 +55,7 @@ public class ThemeTest
 		doc.getBody().appendChild(this.el);
 
 		// Set up basic editor settings. Bare-ass minimum to ensure we have a functioning simple themed editor.
-		EditorInitOptions settings = new EditorInitOptions();
+		EditorSettings settings = new EditorSettings();
 		settings.setTheme("-testtheme");
 		this.editor = new Editor(el.getId(), settings);
 

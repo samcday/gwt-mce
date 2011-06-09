@@ -14,12 +14,12 @@ import com.site2go.gwtmce.client.util.MCEUtil;
  * @author Sam
  *
  */
-public class EditorInitOptions
+public class EditorSettings
 {
 	private PropertiesObject properties;
 	private ArrayList<String> plugins;
 
-	public EditorInitOptions() {
+	public EditorSettings() {
 		this.properties = PropertiesObject.create();
 		this.plugins = new ArrayList<String>();
 	}
@@ -38,7 +38,7 @@ public class EditorInitOptions
 		this.setProperty("theme", theme);
 	}
 
-	public final void setMode(EditorInitOptions.EditorMode mode)
+	public final void setMode(EditorSettings.EditorMode mode)
 	{
 		this.setProperty("mode", mode.getValue());
 	}
@@ -68,7 +68,7 @@ public class EditorInitOptions
 		this.setProperty("doctype", doctype);
 	}
 	
-	public final void setDialogType(EditorInitOptions.EditorDialogType type)
+	public final void setDialogType(EditorSettings.EditorDialogType type)
 	{
 		this.setProperty("dialog_type", type.getValue());
 	}
