@@ -9,24 +9,6 @@ public class Theme
 	extends JavaScriptObject
 	implements ThemeInterface
 {
-	public static final class ThemeRenderOptions
-		extends JavaScriptObject
-	{
-		protected ThemeRenderOptions() { }
-		
-		public static final native ThemeRenderOptions create(Element iframeContainer, String editorContainer, Element sizeContainer, int deltaHeight)
-		/*-{
-			var options = {
-				iframeContainer : iframeContainer,
-				editorContainer : editorContainer,
-				sizeContainer : sizeContainer,
-				deltaHeight : deltaHeight
-			};
-
-			return options;
-		}-*/;
-	}
-
 	protected Theme() { }
 
 	@Override
@@ -60,4 +42,22 @@ public class Theme
 	/*-{
 		return false;
 	}-*/;
+
+	public static final class ThemeRenderOptions
+		extends JavaScriptObject
+	{
+		protected ThemeRenderOptions() { }
+		
+		public static final native ThemeRenderOptions create(Element iframeContainer, String editorContainer, Element sizeContainer, int deltaHeight)
+		/*-{
+			var options = {
+				iframeContainer : iframeContainer,
+				editorContainer : editorContainer,
+				sizeContainer : sizeContainer,
+				deltaHeight : deltaHeight
+			};
+
+			return options;
+		}-*/;
+	}
 }

@@ -36,20 +36,11 @@ public abstract class AddonManager<T>
 		 */
 		AddonFactoryImpl addonFactoryImpl = AddonFactoryImpl.create(addonFactory);
 
-		this._add(name, addonFactoryImpl);
+		this.addImpl(name, addonFactoryImpl);
 	}
 
-	private final native void _add(String name, AddonFactoryImpl addon) /*-{
+	private final native void addImpl(String name, AddonFactoryImpl addon) /*-{
 		this.add(name, addon);
-	}-*/;
-
-	/**
-	 * Returns the specified add on by the short name.
-	 * @param name Add-on to look for.
-	 * @return Theme or plugin add-on instance or null if not found.
-	 */
-	public final native AddonFactoryImpl get(String name) /*-{
-		return this.get(name);
 	}-*/;
 
 	/**
@@ -58,10 +49,9 @@ public abstract class AddonManager<T>
 	 * @param url URL to the add-on that will get loaded.
 	 * @param callback Optional callback to execute ones the add-on is loaded.
 	 */
-	public native final void load(String name, String url,
-			AddonLoadedHandler handler) /*-{
+	public native final void load(String name, String url, AddonLoadedHandler handler) /*-{
 		this.load(name, url, function() {
-			handler.@com.site2go.gwtmce.client.addons.AddonManager.AddonLoadedHandler::onAddonLoaded()();
+			handler && handler.@com.site2go.gwtmce.client.addons.AddonManager.AddonLoadedHandler::onAddonLoaded()();
 		});
 	}-*/;
 	
@@ -72,7 +62,7 @@ public abstract class AddonManager<T>
 	public native final void requireLanguagePack(String name) /*-{
 		this.requireLanguagePack(name);
 	}-*/;
-	
+
 	public static interface AddonLoadedHandler {
 		public void onAddonLoaded();
 	}
