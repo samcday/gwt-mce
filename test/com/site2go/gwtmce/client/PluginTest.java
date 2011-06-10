@@ -57,9 +57,9 @@ public class PluginTest
 		});
 
 		// Set up basic editor settings. Bare-ass minimum to ensure we have a functioning simple themed editor.
-		EditorInitOptions settings = new EditorInitOptions();
+		EditorInitOptions settings = EditorInitOptions.create();
 		settings.setTheme("simple");
-		settings.getPluginsCollection().add("-testcaseplugin");
+		settings.setPlugins(new String[] { "-testcaseplugin"});
 		this.editor = Editor.create(el.getId(), settings);
 
 		this.editor.render();

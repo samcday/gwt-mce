@@ -42,7 +42,7 @@ public class TinyMCETest
 		final HandlerRegistration addReg = tinymce.addAddEditorHandler(handlers);
 		final HandlerRegistration removeReg = tinymce.addRemoveEditorHandler(handlers);
 		
-		EditorInitOptions settings = new EditorInitOptions();
+		EditorInitOptions settings = EditorInitOptions.create();
 		settings.setTheme("simple");
 		final Editor editor = Editor.create(el.getId(), settings);
 

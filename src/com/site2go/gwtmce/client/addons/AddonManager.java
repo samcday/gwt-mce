@@ -1,6 +1,7 @@
 package com.site2go.gwtmce.client.addons;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.site2go.gwt.util.client.FunctionProxy;
 import com.site2go.gwtmce.client.addons.AddonFactoryImpl.AddonFactory;
 
 /**
@@ -59,10 +60,8 @@ public abstract class AddonManager<T>
 	 * @param callback Optional callback to execute ones the add-on is loaded.
 	 */
 	public native final void load(String name, String url,
-			AddonLoadedHandler handler) /*-{
-		this.load(name, url, function() {
-			handler.@com.site2go.gwtmce.client.addons.AddonManager.AddonLoadedHandler::onAddonLoaded()();
-		});
+			FunctionProxy callback) /*-{
+		this.load(name, url, callback);
 	}-*/;
 	
 	/**
@@ -72,8 +71,4 @@ public abstract class AddonManager<T>
 	public native final void requireLanguagePack(String name) /*-{
 		this.requireLanguagePack(name);
 	}-*/;
-	
-	public static interface AddonLoadedHandler {
-		public void onAddonLoaded();
-	}
 }

@@ -80,7 +80,7 @@ public class Editor
 {
 	public static final Editor create(String id, EditorInitOptions settings)
 	{
-		JavaScriptObject editor = constructor(id, settings.getProperties());
+		JavaScriptObject editor = constructor(id, settings);
 		return editor.cast();
 	}
 

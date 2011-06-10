@@ -22,7 +22,7 @@ public class ThemeTest
 	private Element el;
 
 	private boolean initCalled;
-//	private boolean destroyCalled;
+	private boolean destroyCalled;
 	private boolean renderUiCalled;
 	private boolean execCommandCalled;
 
@@ -34,7 +34,7 @@ public class ThemeTest
 	private AddonInfo addonInfo;
 
 	private Element editorContainer;
-//	private Element sizeContainer;
+	private Element sizeContainer;
 
 	@Override
 	public String getModuleName()
@@ -55,7 +55,7 @@ public class ThemeTest
 		doc.getBody().appendChild(this.el);
 
 		// Set up basic editor settings. Bare-ass minimum to ensure we have a functioning simple themed editor.
-		EditorInitOptions settings = new EditorInitOptions();
+		EditorInitOptions settings = EditorInitOptions.create();
 		settings.setTheme("-testtheme");
 		this.editor = Editor.create(el.getId(), settings);
 
