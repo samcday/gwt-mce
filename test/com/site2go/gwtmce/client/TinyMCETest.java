@@ -5,7 +5,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.user.client.Timer;
 import com.site2go.gwtmce.client.editor.Editor;
-import com.site2go.gwtmce.client.editor.EditorInitOptions;
+import com.site2go.gwtmce.client.editor.EditorSettings;
 import com.site2go.gwtmce.client.editor.events.HandlerRegistration;
 import com.site2go.gwtmce.client.util.TinyMCE;
 import com.site2go.gwtmce.client.util.events.AddEditorHandler;
@@ -42,7 +42,7 @@ public class TinyMCETest
 		final HandlerRegistration addReg = tinymce.addAddEditorHandler(handlers);
 		final HandlerRegistration removeReg = tinymce.addRemoveEditorHandler(handlers);
 		
-		EditorInitOptions settings = EditorInitOptions.create();
+		EditorSettings settings = EditorSettings.create();
 		settings.setTheme("simple");
 		final Editor editor = Editor.create(el.getId(), settings);
 

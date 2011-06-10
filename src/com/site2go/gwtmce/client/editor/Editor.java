@@ -78,7 +78,7 @@ import com.site2go.gwtmce.client.util.WindowManager;
 public class Editor
 	extends JavaScriptObject
 {
-	public static final Editor create(String id, EditorInitOptions settings)
+	public static final Editor create(String id, EditorSettings settings)
 	{
 		JavaScriptObject editor = constructor(id, settings);
 		return editor.cast();
@@ -265,7 +265,7 @@ public class Editor
 	 * 
 	 * @return
 	 */
-	public native final EditorInitOptions getSettings() /*-{
+	public native final EditorSettings getSettings() /*-{
 		return this.settings;
 	}-*/;
 

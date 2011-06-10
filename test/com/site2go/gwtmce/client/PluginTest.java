@@ -8,7 +8,7 @@ import com.google.gwt.user.client.Timer;
 import com.site2go.gwtmce.client.addons.AddonInfo;
 import com.site2go.gwtmce.client.addons.AddonFactoryImpl.AddonFactory;
 import com.site2go.gwtmce.client.editor.Editor;
-import com.site2go.gwtmce.client.editor.EditorInitOptions;
+import com.site2go.gwtmce.client.editor.EditorSettings;
 import com.site2go.gwtmce.client.plugin.PluginInterface;
 import com.site2go.gwtmce.client.plugin.PluginManager;
 
@@ -57,7 +57,7 @@ public class PluginTest
 		});
 
 		// Set up basic editor settings. Bare-ass minimum to ensure we have a functioning simple themed editor.
-		EditorInitOptions settings = EditorInitOptions.create();
+		EditorSettings settings = EditorSettings.create();
 		settings.setTheme("simple");
 		settings.setPlugins(new String[] { "-testcaseplugin"});
 		this.editor = Editor.create(el.getId(), settings);

@@ -6,7 +6,7 @@ package com.site2go.gwtmce.client.editor;
 import com.site2go.gwtmce.client.util.PropertiesObject;
 import com.site2go.gwtmce.client.util.MCEUtil;
 
-public class EditorInitOptions
+public class EditorSettings
 	extends PropertiesObject
 {
 	/**
@@ -78,7 +78,7 @@ public class EditorInitOptions
 		}
 	}
 
-	protected EditorInitOptions() { }
+	protected EditorSettings() { }
 
 	public final void setSkin(String skin)
 	{
@@ -95,7 +95,7 @@ public class EditorInitOptions
 		this.setProperty("theme", theme);
 	}
 
-	public final void setMode(EditorInitOptions.EditorMode mode)
+	public final void setMode(EditorSettings.EditorMode mode)
 	{
 		this.setProperty("mode", mode.getValue());
 	}
@@ -125,7 +125,7 @@ public class EditorInitOptions
 		this.setProperty("doctype", doctype);
 	}
 	
-	public final void setDialogType(EditorInitOptions.EditorDialogType type)
+	public final void setDialogType(EditorSettings.EditorDialogType type)
 	{
 		this.setProperty("dialog_type", type.getValue());
 	}

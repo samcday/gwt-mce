@@ -9,7 +9,7 @@ import com.google.gwt.user.client.Timer;
 import com.site2go.gwtmce.client.editor.ContentObject;
 import com.site2go.gwtmce.client.editor.CustomEditorCommandCallback;
 import com.site2go.gwtmce.client.editor.Editor;
-import com.site2go.gwtmce.client.editor.EditorInitOptions;
+import com.site2go.gwtmce.client.editor.EditorSettings;
 import com.site2go.gwtmce.client.editor.UndoLevel;
 import com.site2go.gwtmce.client.editor.UndoManager;
 import com.site2go.gwtmce.client.editor.ContentObject.ContentFormat;
@@ -64,7 +64,7 @@ public class EditorTest
 		doc.getBody().appendChild(this.el);
 
 		// Set up basic editor settings. Bare-ass minimum to ensure we have a functioning simple themed editor.
-		EditorInitOptions settings = EditorInitOptions.create();
+		EditorSettings settings = EditorSettings.create();
 		this.editor = Editor.create(el.getId(), settings);
 		settings.setTheme("simple");
 
@@ -352,7 +352,7 @@ public class EditorTest
 		newElement.setInnerHTML("NEW EDITOR FOR FOCUS TESTING.");
 		doc.getBody().appendChild(newElement);
 
-		final Editor newEditor = Editor.create(newElement.getId(), (EditorInitOptions)EditorInitOptions.create());
+		final Editor newEditor = Editor.create(newElement.getId(), (EditorSettings)EditorSettings.create());
 
 		final TestFocusHandlers handlers = new TestFocusHandlers(this.editor, newEditor);
 
