@@ -2,6 +2,7 @@ package com.site2go.gwtmce.client.editor.events;
 
 import com.site2go.gwt.util.client.FunctionProxy.FunctionArguments;
 import com.site2go.gwtmce.client.editor.Editor;
+import com.site2go.gwtmce.client.editor.impl.EditorImpl;
 import com.site2go.gwtmce.client.event.MCEEventHandlerDelegate;
 
 public class ExecCommandHandlerDelegate
@@ -15,7 +16,7 @@ public class ExecCommandHandlerDelegate
 	@Override
 	public void delegate(ExecCommandHandler handler, FunctionArguments args)
 	{
-		Editor ed = args.getArg(0);
+		Editor ed = EditorImpl.getEditor((EditorImpl)args.getArg(0));
 		String cmd = args.getArg(1);
 		boolean ui = args.getArg(2);
 		handler.onExecCommand(ed, cmd, ui);

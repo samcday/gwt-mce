@@ -7,7 +7,6 @@ import com.google.gwt.dom.client.IFrameElement;
 import com.site2go.gwt.util.client.FunctionProxy;
 import com.site2go.gwtmce.client.util.PropertiesObject;
 import com.site2go.gwtmce.client.dom.Selection;
-import com.site2go.gwtmce.client.editor.ContentObject;
 import com.site2go.gwtmce.client.editor.Editor;
 import com.site2go.gwtmce.client.editor.UndoManager;
 import com.site2go.gwtmce.client.event.Dispatcher;
@@ -28,14 +27,29 @@ import com.site2go.gwtmce.client.util.WindowManager;
 public class EditorImpl
 	extends JavaScriptObject
 {
-	public static final native EditorImpl constructor(String id,
+	public static final native EditorImpl constructor(Editor editor, String id,
 			PropertiesObject settings) /*-{
-		return new $wnd.tinymce.Editor(id, settings);
+		var ed = new $wnd.tinymce.Editor(id, settings);
+		ed.__gwtmceEditor = editor;
+		
+		return ed;
 	}-*/;
 
 	protected EditorImpl()
 	{
 	}
+	
+	/**
+	 * Editor implementations are wrapped inside the actual {@link Editor} (if
+	 * they've been created via gwt-mce anyway). This somewhat ugly shim returns
+	 * the static reference we have to said Editor instance. This hack is ok for
+	 * our purposes, since an unmanaged tinymce.Editor would never actually trigger
+	 * events that gwt-mce listens for.
+	 * @return
+	 */
+	public static native final Editor getEditor(EditorImpl editorImpl) /*-{
+		return editorImpl.__gwtmceEditor;
+	}-*/;
 
 	public native final void destroy()
 	/*-{
@@ -59,7 +73,7 @@ public class EditorImpl
 		return this.getContainer();
 	}-*/;
 
-	public native final String getContent(ContentObject options) /*-{
+	public native final String getContent(PropertiesObject options) /*-{
 		return this.getContent(options);
 	}-*/;
 
@@ -146,7 +160,7 @@ public class EditorImpl
 		return this.save(null);
 	}
 
-	public native final String setContent(String h, ContentObject options) /*-{
+	public native final String setContent(String h, PropertiesObject options) /*-{
 		return this.setContent(h, options);
 	}-*/;
 

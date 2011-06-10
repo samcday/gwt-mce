@@ -11,10 +11,24 @@ import com.site2go.gwtmce.client.util.PropertiesObject;
  *
  */
 public class ContentObject {
-	private PropertiesObject obj;
+	protected PropertiesObject obj;
+
+	public static final ContentObject wrap(PropertiesObject obj) {
+		ContentObject co = obj.getProperty("__gwtmceContentObject");
+		if(co == null) {
+			co = new ContentObject(obj);
+		}
+		
+		return co;
+	}
+	
+	protected ContentObject(PropertiesObject obj) {
+		this.obj = obj;
+	}
 
 	public ContentObject() {
 		this.obj = PropertiesObject.create();
+		this.obj.setProperty("__gwtmceContentObject", this);
 	}
 
 	public ContentObject(boolean noEvents, ContentFormat format)

@@ -2,6 +2,7 @@ package com.site2go.gwtmce.client.editor.events;
 
 import com.site2go.gwt.util.client.FunctionProxy.FunctionArguments;
 import com.site2go.gwtmce.client.editor.Editor;
+import com.site2go.gwtmce.client.editor.impl.EditorImpl;
 import com.site2go.gwtmce.client.event.MCEEventHandlerDelegate;
 
 public class SetProgressStateHandlerDelegate
@@ -15,7 +16,7 @@ public class SetProgressStateHandlerDelegate
 	@Override
 	public void delegate(SetProgressStateHandler handler, FunctionArguments args)
 	{
-		Editor sender = args.getArg(0);
+		Editor sender = EditorImpl.getEditor((EditorImpl)args.getArg(0));
 		boolean enabled = args.getArg(1);
 		
 		Object timeoutObj = args.getArg(2);

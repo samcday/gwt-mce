@@ -3,6 +3,7 @@ package com.site2go.gwtmce.client.editor.events;
 import com.google.gwt.dom.client.NativeEvent;
 import com.site2go.gwt.util.client.FunctionProxy.FunctionArguments;
 import com.site2go.gwtmce.client.editor.Editor;
+import com.site2go.gwtmce.client.editor.impl.EditorImpl;
 import com.site2go.gwtmce.client.event.MCEEventHandlerDelegate;
 
 public class EventHandlerDelegate
@@ -16,7 +17,7 @@ public class EventHandlerDelegate
 	@Override
 	public void delegate(EventHandler handler, FunctionArguments args)
 	{
-		Editor ed = args.getArg(0);
+		Editor ed = EditorImpl.getEditor((EditorImpl)args.getArg(0));
 		NativeEvent ev = args.getArg(1);
 		handler.onEvent(ed, ev);
 	}

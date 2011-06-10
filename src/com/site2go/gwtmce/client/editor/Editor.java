@@ -86,7 +86,7 @@ public class Editor
 	 */
 	public Editor(String id, EditorSettings s) {
 		this.settings = s;
-		this.impl = EditorImpl.constructor(id, s.getProperties());
+		this.impl = EditorImpl.constructor(this, id, s.getProperties());
 	}
 
 	/**
@@ -179,7 +179,12 @@ public class Editor
 	 * @return Cleaned content string, normally HTML contents.
 	 */
 	public String getContent(ContentObject options) {
-		return this.impl.getContent(options);
+		if(options == null) {
+			return this.impl.getContent(null);
+		}
+		else {
+			return this.impl.getContent(options.getProperties());
+		}
 	};
 
 	public String getContent()
@@ -335,7 +340,12 @@ public class Editor
 	 * @return HTML string that got set into the editor.
 	 */
 	public String setContent(String h, ContentObject options) {
-		return this.impl.setContent(h, options);
+		if(options == null) {
+			return this.impl.setContent(h, null);
+		}
+		else {
+			return this.impl.setContent(h, options.getProperties());
+		}
 	}
 
 	public String setContent(String h)
