@@ -6,7 +6,7 @@ import com.site2go.gwt.util.client.FunctionProxy;
 import com.site2go.gwtmce.client.util.PropertiesObject;
 import com.site2go.gwt.util.client.FunctionProxy.FunctionArguments;
 import com.site2go.gwt.util.client.FunctionProxy.FunctionHandler;
-import com.site2go.gwtmce.client.editor.impl.EditorImpl;
+import com.site2go.gwtmce.client.editor.Editor;
 import com.site2go.gwtmce.client.plugin.Plugin;
 import com.site2go.gwtmce.client.plugin.PluginInterface;
 import com.site2go.gwtmce.client.theme.Theme;
@@ -58,7 +58,7 @@ public class AddonFactoryImpl
 			public Object onFunctionCall(FunctionProxy func,
 					FunctionArguments args)
 			{
-				themeImpl.init(EditorImpl.getEditor((EditorImpl)args.getArg(0)), (String) args.getArg(1));
+				themeImpl.init((Editor) args.getArg(0), (String) args.getArg(1));
 				return null;
 			}
 		}, theme, "init");
@@ -120,7 +120,7 @@ public class AddonFactoryImpl
 			public Object onFunctionCall(FunctionProxy func,
 					FunctionArguments args)
 			{
-				pluginImpl.init(EditorImpl.getEditor((EditorImpl)args.getArg(0)), (String) args.getArg(1));
+				pluginImpl.init((Editor) args.getArg(0), (String) args.getArg(1));
 				return null;
 			}
 		}, plugin, "init");
