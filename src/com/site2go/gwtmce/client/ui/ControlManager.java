@@ -26,10 +26,10 @@ public class ControlManager
 	 * @param settings Optional settings object for the control.
 	 * @return Control instance that got created and added.
 	 */
-	public final native Control createButton(String id, PropertiesObject settings) /*-{
+	public final native Control createButton(String id, ButtonOptions settings) /*-{
 		return this.createButton(id, settings);
 	}-*/;
-	
+
 	/**
 	 * Creates a separator control instance.
 	 * @return Control instance that got created and added.
