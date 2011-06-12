@@ -182,6 +182,6 @@ public class ThemeTest
 		sizeContainer.appendChild(iframe);
 		
 		this.renderUiCalled = true;
-		return ThemeRenderOptions.create(iframe, this.editorContainer.getId(), sizeContainer, 0);
+		return ThemeRenderOptions.create(iframe, this.editorContainer, sizeContainer, 0);
 	}
 }
