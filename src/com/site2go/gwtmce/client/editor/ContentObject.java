@@ -71,10 +71,7 @@ public class ContentObject
 	public final ContentObject.ContentFormat getFormat()
 	{
 		String format = this.getProperty("format", "html");
-		if(format.equals("raw"))
-			return ContentFormat.RAW;
-		else
-			return ContentFormat.HTML;
+		return ContentFormat.valueOf(format.toUpperCase());
 	}
 
 	public final String getContent()
