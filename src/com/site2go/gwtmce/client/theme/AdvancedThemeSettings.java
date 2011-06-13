@@ -17,6 +17,10 @@ public class AdvancedThemeSettings
 	public final void setLayoutManager(LayoutManager manager) {
 		this.setProperty("theme_advanced_layout_manager", manager.getValue());
 	}
+	
+	public final void setStatusBarLocation(StatusBarLocation location) {
+		this.setProperty("theme_advanced_statusbar_location", location.getValue());
+	}
 
 	public final void setCustomLayout(final AdvancedThemeCustomLayoutHandler handler) {
 		this.setProperty("theme_advanced_custom_layout", FunctionProxy.create(new FunctionHandler() {
@@ -57,6 +61,22 @@ public class AdvancedThemeSettings
 		}
 	}
 	
+	public static enum StatusBarLocation {
+		TOP("top"),
+		BOTTOM("bottom"),
+		NONE("none");
+		
+		private String value;
+		
+		private StatusBarLocation(String value) {
+			this.value = value;
+		}
+		
+		public String getValue() {
+			return this.value;
+		}
+	};
+
 	public static enum ToolbarLocation {
 		TOP("top"),
 		BOTTOM("bottom"),
