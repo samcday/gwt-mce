@@ -1,5 +1,6 @@
 package com.site2go.gwtmce.client.addons;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
 import com.site2go.gwt.util.client.FunctionProxy;
@@ -141,7 +142,11 @@ public class AddonFactoryImpl
 			public Object onFunctionCall(FunctionProxy func,
 					FunctionArguments args)
 			{
-				return pluginImpl.execCommand((String) args.getArg(0), (Boolean)args.getArg(1), args.getArg(2));
+				String cmd = args.getArg(0);
+				boolean ui = (args.getArg(1) != null) ? (Boolean)args.getArg(1) : false;
+				Object value = args.getArg(2);
+
+				return pluginImpl.execCommand(cmd, ui, value);
 			}
 		}, plugin, "execCommand");
 	}
