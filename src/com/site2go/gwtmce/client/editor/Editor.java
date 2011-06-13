@@ -9,6 +9,7 @@ import com.site2go.gwtmce.client.util.PropertiesObject;
 import com.site2go.gwt.util.client.FunctionProxy.FunctionArguments;
 import com.site2go.gwt.util.client.FunctionProxy.FunctionHandler;
 import com.site2go.gwtmce.client.dom.Selection;
+import com.site2go.gwtmce.client.dom.Serializer;
 import com.site2go.gwtmce.client.editor.events.ActivateHandler;
 import com.site2go.gwtmce.client.editor.events.ActivateHandlerDelegate;
 import com.site2go.gwtmce.client.editor.events.BeforeExecCommandHandler;
@@ -259,11 +260,11 @@ public class Editor
 	}-*/;
 	
 	public native final Selection getSelection() /*-{
-		alert(this);
-		alert(this.selection);
-		alert(this.selection.getEnd);
-		//return null;
 		return this.selection;
+	}-*/;
+	
+	public native final Serializer getSerializer() /*-{
+		return this.serializer;
 	}-*/;
 
 	/**
