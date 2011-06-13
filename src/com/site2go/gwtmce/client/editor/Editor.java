@@ -112,6 +112,10 @@ public class Editor
 		this.destroy();
 	}-*/;
 	
+	public native final boolean isInitialized() /*-{
+		return this.initialized ? true : false;
+	}-*/;
+	
 	/**
 	 * Executes a command on the current instance. These commands can be TinyMCE
 	 * internal commands prefixed with "mce" or they can be build in browser
