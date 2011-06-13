@@ -1,6 +1,5 @@
 package com.site2go.gwtmce.client.addons;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
 import com.site2go.gwt.util.client.FunctionProxy;
