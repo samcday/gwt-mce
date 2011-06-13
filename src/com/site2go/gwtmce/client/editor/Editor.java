@@ -48,6 +48,8 @@ import com.site2go.gwtmce.client.editor.events.MouseDownHandler;
 import com.site2go.gwtmce.client.editor.events.MouseDownHandlerDelegate;
 import com.site2go.gwtmce.client.editor.events.MouseUpHandler;
 import com.site2go.gwtmce.client.editor.events.MouseUpHandlerDelegate;
+import com.site2go.gwtmce.client.editor.events.NodeChangeDelegate;
+import com.site2go.gwtmce.client.editor.events.NodeChangeHandler;
 import com.site2go.gwtmce.client.editor.events.PostRenderHandler;
 import com.site2go.gwtmce.client.editor.events.PostRenderHandlerDelegate;
 import com.site2go.gwtmce.client.editor.events.PreInitHandler;
@@ -646,5 +648,10 @@ public class Editor
 	{
 		Dispatcher dispatcher = this.getDispatcher("undo");
 		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new UndoHandlerDelegate(handler));
+	}
+	
+	public final HandlerRegistration addNodeChangeHandler(NodeChangeHandler handler) {
+		Dispatcher dispatcher = this.getDispatcher("nodeChange");
+		return MCEEventHandlerDelegate.registerEditorEventDelegateFunctionProxy(this, dispatcher, new NodeChangeDelegate(handler));
 	}
 }
